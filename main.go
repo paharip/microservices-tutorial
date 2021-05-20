@@ -5,18 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"github.com/paharip/microservices-tutorial/data"
 )
-
-type helloWorldResponse struct {
-	Message string `json:"message"`
-	Author  string `jason:"-"`
-	Date    string `json:",omitempty"`
-	Id      int    `json:"id,string"`
-}
-
-type helloWorldRequest struct {
-	Name string `json:"name"`
-}
 
 func main() {
 
@@ -25,9 +15,8 @@ func main() {
 	http.HandleFunc("/helloworld", helloWorldHandler)
 	http.HandleFunc("/helloworld1", helloWorldHandler1)
 
-	cathandler:= http.FileServer(http.Dir("./images"))
+	cathandler := http.FileServer(http.Dir("./images"))
 	http.Handle("/cat/", http.StripPrefix("/cat/", cathandler))
-	
 
 	log.Printf("Server starting on port %v\n", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
@@ -58,4 +47,3 @@ func helloWorldHandler1(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	encoder.Encode(response)
 }
-

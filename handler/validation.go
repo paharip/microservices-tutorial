@@ -3,7 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	"github.com/paharip/microservice-tutorial"
 )
 
 type validationHandler struct {
